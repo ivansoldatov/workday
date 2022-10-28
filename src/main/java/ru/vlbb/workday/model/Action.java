@@ -7,14 +7,12 @@ public class Action {
     private final LocalDate date;
     private final LocalTime startTime;
     private final LocalTime endTime;
-    private final int duration;
     private final String description;
 
-    public Action(LocalDate date, LocalTime startTime, LocalTime endTime, int duration, String description) {
+    public Action(LocalDate date, LocalTime startTime, LocalTime endTime, String description) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.duration = duration;
         this.description = description;
     }
 
