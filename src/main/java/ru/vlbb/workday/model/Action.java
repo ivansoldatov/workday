@@ -28,10 +28,6 @@ public class Action {
         return endTime;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
     public String getDescription() {
         return description;
     }
