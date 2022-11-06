@@ -7,15 +7,13 @@ public class ActionTo {
     private final LocalDate date;
     private final LocalTime startTime;
     private final LocalTime endTime;
-    private final int duration;
     private final String description;
     private final boolean excess;
 
-    public ActionTo(LocalDate date, LocalTime startTime, LocalTime endTime, int duration, String description, boolean excess) {
+    public ActionTo(LocalDate date, LocalTime startTime, LocalTime endTime, String description, boolean excess) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.duration = duration;
         this.description = description;
         this.excess = excess;
     }
@@ -32,11 +30,9 @@ public class ActionTo {
         return endTime;
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
     public String getDescription() {
         return description;
     }
+
+    public boolean isExcess() { return excess; }
 }

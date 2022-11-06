@@ -2,6 +2,7 @@ package ru.vlbb.workday.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 public class Action {
     private final LocalDate date;
@@ -32,4 +33,8 @@ public class Action {
         return description;
     }
 
+    public double getIntervalInHours() {
+        double interval = (startTime.toEpochSecond(date, ZoneOffset.UTC) - endTime.toEpochSecond(date, ZoneOffset.UTC)) / 60 / 60.0;
+        return (Math.round(interval * 100.0) / 100.0);
+    }
 }
