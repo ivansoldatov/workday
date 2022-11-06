@@ -42,6 +42,6 @@ public class ActionsUtil {
     }
 
     private static ActionTo createTo(Action action, boolean excess) {
-        return new ActionTo(action.getDate(), action.getStartTime(), action.getEndTime(), action.getDescription(), excess);
+        return new ActionTo(action.getDate(), action.getStartDateTime(), action.getEndTime(), action.getDescription(), excess);
     }
 }
