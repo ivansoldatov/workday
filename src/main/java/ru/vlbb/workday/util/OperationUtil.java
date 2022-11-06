@@ -1,7 +1,7 @@
 package ru.vlbb.workday.util;
 
-import ru.vlbb.workday.model.OperationTo;
 import ru.vlbb.workday.model.Operation;
+import ru.vlbb.workday.model.OperationTo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,10 +27,10 @@ public class OperationUtil {
         List<ActionTo> list = filteredByStreams(actions, LocalTime.of(8, 0), LocalTime.of(17, 0), 7.0); */
     }
 
-    public static List<Operation> filteredByStreams(List<OperationTo> actions, LocalTime startTime, LocalTime endTime, Double normHoursPerDay) {
+    public static List<OperationTo> filteredByStreams(List<Operation> actions, LocalTime startTime, LocalTime endTime, Double normHoursPerDay) {
         Map<LocalDate, Double> workTimePerDay = actions.stream()
                 .collect(
-                        Collectors.groupingBy(OperationTo::getStartDate, Collectors.summingDouble(OperationTo::getIntervalInHours))
+                        Collectors.groupingBy(Operation::getStartDate, Collectors.summingDouble(Operation::getIntervalInHours))
                 );
 
         return actions.stream()
@@ -39,7 +39,7 @@ public class OperationUtil {
                 .collect(Collectors.toList());
     }
 
-    private static Operation createTo(OperationTo action, boolean excess) {
-        return new Operation(action.getStartDateTime(), action.getEndDateTime(), action.getDescription(), excess);
+    private static OperationTo createTo(Operation action, boolean excess) {
+        return new OperationTo(action.getStartDateTime(), action.getEndDateTime(), action.getDescription(), excess);
     }
 }

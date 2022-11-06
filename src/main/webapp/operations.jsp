@@ -25,7 +25,7 @@
         </tr>
         </thead>
         <c:forEach items="${requestScope.actions}" var="action">
-            <jsp:useBean id="meal" type="ru.vlbb.workday.model.Operation"/>
+            <jsp:useBean id="meal" type="ru.vlbb.workday.model.OperationTo"/>
         <tr class="${action.excess ? 'excess' : 'normal'}">
             <td>
                     <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>

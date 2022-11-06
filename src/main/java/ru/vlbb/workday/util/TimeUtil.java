@@ -1,6 +1,6 @@
 package ru.vlbb.workday.util;
 
-import ru.vlbb.workday.model.OperationTo;
+import ru.vlbb.workday.model.Operation;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,7 +10,7 @@ public class TimeUtil {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public static boolean isBetweenHalfOpen(OperationTo action, LocalTime startTime, LocalTime endTime) {
+    public static boolean isBetweenHalfOpen(Operation action, LocalTime startTime, LocalTime endTime) {
         return action.getStartTime().compareTo(startTime) >= 0 && action.getEndTime().compareTo(endTime) < 0;
     }
 
