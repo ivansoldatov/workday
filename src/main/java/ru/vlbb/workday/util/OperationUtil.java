@@ -4,7 +4,10 @@ import ru.vlbb.workday.model.Operation;
 import ru.vlbb.workday.model.OperationTo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,33 +16,33 @@ import static ru.vlbb.workday.util.TimeUtil.isBetweenHalfOpen;
 
 public class OperationUtil {
 
+    public static final List<Operation> operations = Arrays.asList(
+            new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 8, 5), LocalDateTime.of(2022, Month.NOVEMBER, 6, 8, 25), "Подготовка рабочего места"),
+            new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 9, 5), LocalDateTime.of(2022, Month.NOVEMBER, 6, 9, 45), "Подготовка договора для клиента")
+    );
+
     public static void main(String[] args) {
-   /*     List<Action> actions = Arrays.asList(
-                new Action(LocalDate.parse("15.10.2022", dtf), LocalTime.of(8, 15), LocalTime.of(8, 30), "Подготовка рабочего места"),
-                new Action(LocalDate.parse("15.10.2022", dtf), LocalTime.of(9, 0), LocalTime.of(10, 0), "Подготовка договора для клиента"),
-                new Action(LocalDate.parse("15.10.2022", dtf), LocalTime.of(10, 15), LocalTime.of(11, 45), "Работа с клиентом"),
-                new Action(LocalDate.parse("15.10.2022", dtf), LocalTime.of(12, 0), LocalTime.of(13, 0), "Перерыв"),
-                new Action(LocalDate.parse("16.10.2022", dtf), LocalTime.of(8, 15), LocalTime.of(8, 30), "Подготовка рабочего места"),
-                new Action(LocalDate.parse("16.10.2022", dtf), LocalTime.of(9, 0), LocalTime.of(10, 0), "Подготовка договора для клиента"),
-                new Action(LocalDate.parse("16.10.2022", dtf), LocalTime.of(10, 15), LocalTime.of(11, 45), "Работа с клиентом"),
-                new Action(LocalDate.parse("16.10.2022", dtf), LocalTime.of(13, 0), LocalTime.of(17, 0), "Перерыв")
-        );
-        List<ActionTo> list = filteredByStreams(actions, LocalTime.of(8, 0), LocalTime.of(17, 0), 7.0); */
+
+//        List<ActionTo> list = filteredByStreams(actions, LocalTime.of(8, 0), LocalTime.of(17, 0), 7.0); */
     }
 
-    public static List<OperationTo> filteredByStreams(List<Operation> actions, LocalTime startTime, LocalTime endTime, Double normHoursPerDay) {
-        Map<LocalDate, Double> workTimePerDay = actions.stream()
+    public static List<OperationTo> getTos(List<Operation> operations, Double normHoursPerDay) {
+        return operations.stream().map(operation -> createTo(operation, true)).collect(Collectors.toList());
+    }
+
+    public static List<OperationTo> filteredByStreams(List<Operation> operations, LocalTime startTime, LocalTime endTime, Double normHoursPerDay) {
+        Map<LocalDate, Double> workTimePerDay = operations.stream()
                 .collect(
                         Collectors.groupingBy(Operation::getStartDate, Collectors.summingDouble(Operation::getIntervalInHours))
                 );
 
-        return actions.stream()
-                .filter(action -> isBetweenHalfOpen(action, startTime, endTime))
-                .map(action -> createTo(action, workTimePerDay.get(action.getStartDate()) > normHoursPerDay))
+        return operations.stream()
+                .filter(operation -> isBetweenHalfOpen(operation, startTime, endTime))
+                .map(operation -> createTo(operation, workTimePerDay.get(operation.getStartDate()) > normHoursPerDay))
                 .collect(Collectors.toList());
     }
 
-    private static OperationTo createTo(Operation action, boolean excess) {
-        return new OperationTo(action.getStartDateTime(), action.getEndDateTime(), action.getDescription(), excess);
+    private static OperationTo createTo(Operation operation, boolean excess) {
+        return new OperationTo(operation.getStartDateTime(), operation.getEndDateTime(), operation.getDescription(), excess);
     }
 }

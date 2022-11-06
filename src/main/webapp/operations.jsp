@@ -12,30 +12,33 @@
     <hr>
     <h2 style="text-align: center">Operations</h2>
 <%--    <a href="actions?step=create" style="text-align: center">Add Action</a>--%>
-    <div style='text-align:center; width:100%'><a href="actions?step=create" style="text-align: center">Add Operation</a></div>
+    <div style='text-align:center; width:100%'><a href="operations?action=create" style="text-align: center">Add Operation</a></div>
     <br>
     <table align="center" border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
             <th>Date</th>
-            <th>Time</th>
+            <th>Start time</th>
+            <th>End time</th>
             <th>Description</th>
             <th></th>
             <th></th>
         </tr>
         </thead>
-        <c:forEach items="${requestScope.actions}" var="action">
-            <jsp:useBean id="meal" type="ru.vlbb.workday.model.OperationTo"/>
-        <tr class="${action.excess ? 'excess' : 'normal'}">
+        <c:forEach items="${requestScope.operations}" var="operation">
+            <jsp:useBean id="operation" type="ru.vlbb.workday.model.OperationTo"/>
+        <tr class="${operation.excess ? 'excess' : 'normal'}">
             <td>
                     <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
                     <%--<%=TimeUtil.toString(meal.getDateTime())%>--%>
                     <%--${fn:replace(meal.dateTime, 'T', ' ')}--%>
-                    ${fn:formatDateTime(action.dateTime)}
+<%--                    ${fn:formatDateTime(operation.startDate)}--%>
             </td>
-            <td>${action.description}</td>
-            <td><a href="actions?step=update&id=${meal.id}">Update</a></td>
-            <td><a href="actions?step=delete&id=${meal.id}">Delete</a></td>
+            <td> ${fn:formatDateTime(operation.startDateTime)}</td>
+            <td> ${fn:formatDateTime(operation.endDateTime)}</td>
+            <td>${operation.description}</td>
+<%--            <td><a href="actions?step=update&id=${meal.id}">Update</a></td>--%>
+<%--            <td><a href="actions?step=delete&id=${meal.id}">Delete</a></td>--%>
         </tr>
         </c:forEach>
 </section>
