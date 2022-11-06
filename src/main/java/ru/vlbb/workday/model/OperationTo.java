@@ -6,12 +6,12 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Locale;
 
-public class Action {
+public class OperationTo {
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String description;
 
-    public Action(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
+    public OperationTo(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;

@@ -10,14 +10,14 @@ import java.io.IOException;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class ActionServlet extends HttpServlet {
-    private static final Logger log = getLogger(ActionServlet.class);
+public class OperationServlet extends HttpServlet {
+    private static final Logger log = getLogger(OperationServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("redirect to actions");
+        log.debug("redirect to operations");
 
-//        request.getRequestDispatcher("/actions.jsp").forward(request, response);
-        response.sendRedirect("actions.jsp");
+//        request.getRequestDispatcher("/operations.jsp").forward(request, response);
+        response.sendRedirect("operations.jsp");
     }
 }
