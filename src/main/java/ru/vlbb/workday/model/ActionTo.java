@@ -1,38 +1,21 @@
 package ru.vlbb.workday.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class ActionTo {
-    private final LocalDate date;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
     private final String description;
     private final boolean excess;
 
-    public ActionTo(LocalDate date, LocalTime startTime, LocalTime endTime, String description, boolean excess) {
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public ActionTo(LocalDateTime startDateTime, LocalDateTime endDateTime, String description, boolean excess) {
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.description = description;
         this.excess = excess;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public boolean isExcess() {
+        return excess;
     }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isExcess() { return excess; }
 }

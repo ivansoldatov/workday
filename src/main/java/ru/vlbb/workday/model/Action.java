@@ -12,7 +12,6 @@ public class Action {
     private final String description;
 
     public Action(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
-
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
