@@ -9,8 +9,13 @@
     <uri>http://workday.vlbb.ru/functions</uri>
 
     <function>
-        <name>formatDateTime</name>
+        <name>formatDate</name>
         <function-class>ru.vlbb.workday.util.TimeUtil</function-class>
-        <function-signature>java.lang.String toString(java.time.LocalDateTime)</function-signature>
+        <function-signature>java.lang.String dateToString(java.time.LocalDateTime)</function-signature>
+    </function>
+    <function>
+        <name>formatTime</name>
+        <function-class>ru.vlbb.workday.util.TimeUtil</function-class>
+        <function-signature>java.lang.String timeToString(java.time.LocalDateTime)</function-signature>
     </function>
 </taglib>
