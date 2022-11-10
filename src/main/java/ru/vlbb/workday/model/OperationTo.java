@@ -11,7 +11,8 @@ public class OperationTo {
     private final String description;
     private final boolean excess;
 
-    public OperationTo(LocalDateTime startDateTime, LocalDateTime endDateTime, String description, boolean excess) {
+    public OperationTo(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, boolean excess) {
+        this.id=id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;

@@ -12,10 +12,15 @@ public class Operation {
     private final LocalDateTime endDateTime;
     private final String description;
 
-    public Operation(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
+    public Operation(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
+        this.id = id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
+    }
+
+    public Operation(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
+        this(null, startDateTime, endDateTime, description);
     }
 
     public Integer getId() {

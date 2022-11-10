@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class OperationUtil {
 //        List<ActionTo> list = filteredByStreams(actions, LocalTime.of(8, 0), LocalTime.of(17, 0), 7.0); */
     }
 
-    public static List<OperationTo> getTos(List<Operation> operations, Double normHoursPerDay) {
+    public static List<OperationTo> getTos(Collection<Operation> operations, Double normHoursPerDay) {
         return operations.stream().map(operation -> createTo(operation, true)).collect(Collectors.toList());
     }
 
@@ -45,6 +46,6 @@ public class OperationUtil {
     }
 
     private static OperationTo createTo(Operation operation, boolean excess) {
-        return new OperationTo(operation.getStartDateTime(), operation.getEndDateTime(), operation.getDescription(), excess);
+        return new OperationTo(operation.getId(), operation.getStartDateTime(), operation.getEndDateTime(), operation.getDescription(), excess);
     }
 }
