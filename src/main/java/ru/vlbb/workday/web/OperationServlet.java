@@ -37,8 +37,11 @@ public class OperationServlet extends HttpServlet {
                 repository.delete(id);
                 response.sendRedirect("operations");
                 break;
+            case "create":
             case "update":
-                Operation operation = repository.get(getId(request));
+                final Operation operation = "create".equals(action) ?
+                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation") :
+                        repository.get(getId(request));
                 request.setAttribute("operation", operation);
                 request.getRequestDispatcher("/operationForm.jsp").forward(request, response);
             case "all":
