@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
@@ -51,6 +53,21 @@ public class OperationServlet extends HttpServlet {
                 request.getRequestDispatcher("/operations.jsp").forward(request, response);
                 break;
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String id = request.getParameter("id");
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("startTime")));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("endTime")));
+        String description = request.getParameter("description");
+
+        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description);
+
+        log.info(operation.isNew() ? "Create {}" : "Update {}", operation);
+        repository.save(operation);
+        response.sendRedirect("operations");
     }
 
     private int getId(HttpServletRequest request) {
