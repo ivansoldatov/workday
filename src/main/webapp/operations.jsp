@@ -38,8 +38,8 @@
             <td style="text-align: center"> ${fn:formatTime(operation.startDateTime)}</td>
             <td style="text-align: center"> ${fn:formatTime(operation.endDateTime)}</td>
             <td style="text-align: left">${operation.description}</td>
-<%--            <td><a href="actions?step=update&id=${meal.id}">Update</a></td>--%>
-<%--            <td><a href="actions?step=delete&id=${meal.id}">Delete</a></td>--%>
+            <td><a href="actions?step=update&id=${meal.id}">Update</a></td>
+            <td><a href="actions?step=delete&id=${meal.id}">Delete</a></td>
         </tr>
         </c:forEach>
 </section>

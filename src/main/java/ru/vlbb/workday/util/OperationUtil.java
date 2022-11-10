@@ -18,7 +18,9 @@ public class OperationUtil {
 
     public static final List<Operation> operations = Arrays.asList(
             new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 8, 5), LocalDateTime.of(2022, Month.NOVEMBER, 6, 8, 25), "Подготовка рабочего места"),
-            new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 9, 5), LocalDateTime.of(2022, Month.NOVEMBER, 6, 9, 45), "Подготовка договора для клиента")
+            new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 9, 5), LocalDateTime.of(2022, Month.NOVEMBER, 6, 9, 45), "Подготовка договора для клиента"),
+            new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 10, 0), LocalDateTime.of(2022, Month.NOVEMBER, 6, 11, 0), "Работа с клиентом"),
+            new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 6, 11, 10), LocalDateTime.of(2022, Month.NOVEMBER, 6, 11, 45), "Оформление дела клиента и передача в архив")
     );
 
     public static void main(String[] args) {

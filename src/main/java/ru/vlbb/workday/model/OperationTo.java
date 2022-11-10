@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class OperationTo {
+    private Integer id;
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String description;
@@ -16,6 +17,10 @@ public class OperationTo {
         this.description = description;
         this.excess = excess;
     }
+
+    public Integer getId() {return id;}
+
+    public void setId(Integer id) { this.id = id;}
 
     public LocalDateTime getStartDateTime() {
         return startDateTime;
