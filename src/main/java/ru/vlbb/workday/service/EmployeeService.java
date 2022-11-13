@@ -1,13 +1,12 @@
 package ru.vlbb.workday.service;
 
-
-
 import ru.vlbb.workday.model.Employee;
 import ru.vlbb.workday.repository.EmployeeRepository;
 
 import java.util.List;
 
-import static ru.vlbb.workday.util.ValidationUtil.*;
+import static ru.vlbb.workday.util.ValidationUtil.checkNotFound;
+import static ru.vlbb.workday.util.ValidationUtil.checkNotFoundWithId;
 
 public class EmployeeService {
 
