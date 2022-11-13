@@ -41,9 +41,4 @@ public abstract class AbstractEmployeeController {
         assureIdConsistent(employee, id);
         service.update(employee);
     }
-
-    public Employee getByMail(String email) {
-        log.info("getByEmail {}", email);
-        return service.getByEmail(email);
-    }
 }

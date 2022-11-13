@@ -33,8 +33,4 @@ public class AdminRestController extends AbstractEmployeeController {
         super.update(employee, id);
     }
 
-    @Override
-    public Employee getByMail(String email) {
-        return super.getByMail(email);
-    }
 }

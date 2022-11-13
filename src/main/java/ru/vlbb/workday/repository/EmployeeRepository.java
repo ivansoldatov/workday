@@ -14,8 +14,5 @@ public interface EmployeeRepository {
     // null if not found
     Employee get(int id);
 
-    // null if not found
-    Employee getByEmail(String email);
-
     List<Employee> getAll();
 }

@@ -8,7 +8,6 @@ public interface OperationRepository {
     // null if not found, when updated
     Operation save(Operation operation);
 
-
     // false if not found
     boolean delete(int id);
 

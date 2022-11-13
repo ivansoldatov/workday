@@ -24,10 +24,6 @@ public class EmployeeService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public Employee getByEmail(String email) {
-        return checkNotFound(repository.getByEmail(email), "email=" + email);
-    }
-
     public List<Employee> getAll() {
         return repository.getAll();
     }
