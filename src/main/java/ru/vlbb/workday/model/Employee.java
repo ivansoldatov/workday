@@ -17,7 +17,7 @@ public class Employee extends AbstractNamedEntity {
     private Set<Role> roles;
 
     public Employee(Integer id, String name, String login, String password, Role role, Role... roles) {
-        this(id, name, login, password, true, EnumSet.of(role, roles));
+        this (id, name, login, password, true, EnumSet.of(role, roles));
     }
 
     public Employee(Integer id, String name, String login, String password, boolean enabled, Set<Role> roles) {
@@ -51,6 +51,7 @@ public class Employee extends AbstractNamedEntity {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
 
     public boolean isEnabled() {
         return enabled;
