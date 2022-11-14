@@ -1,6 +1,8 @@
-package ru.vlbb.workday.repository;
+package ru.vlbb.workday.repository.inmemory;
 
+import org.springframework.stereotype.Repository;
 import ru.vlbb.workday.model.Operation;
+import ru.vlbb.workday.repository.OperationRepository;
 import ru.vlbb.workday.util.OperationUtil;
 
 import java.util.Collection;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Repository
 public class InMemoryOperationRepository implements OperationRepository {
 
     private final Map<Integer, Operation> repository = new ConcurrentHashMap<>();

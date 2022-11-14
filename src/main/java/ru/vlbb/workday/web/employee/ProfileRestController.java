@@ -1,9 +1,11 @@
 package ru.vlbb.workday.web.employee;
 
+import org.springframework.stereotype.Controller;
 import ru.vlbb.workday.model.Employee;
 
 import static ru.vlbb.workday.web.SecurityUtil.authEmployeeId;
 
+@Controller
 public class ProfileRestController extends AbstractEmployeeController {
 
     public Employee get() {

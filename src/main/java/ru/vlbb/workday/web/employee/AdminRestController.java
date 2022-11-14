@@ -2,10 +2,12 @@ package ru.vlbb.workday.web.employee;
 
 
 
+import org.springframework.stereotype.Controller;
 import ru.vlbb.workday.model.Employee;
 
 import java.util.List;
 
+@Controller
 public class AdminRestController extends AbstractEmployeeController {
 
     @Override

@@ -52,7 +52,6 @@ public class Employee extends AbstractNamedEntity {
         this.enabled = enabled;
     }
 
-
     public boolean isEnabled() {
         return enabled;
     }

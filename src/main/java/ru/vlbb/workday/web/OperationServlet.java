@@ -2,7 +2,7 @@ package ru.vlbb.workday.web;
 
 import org.slf4j.Logger;
 import ru.vlbb.workday.model.Operation;
-import ru.vlbb.workday.repository.InMemoryOperationRepository;
+import ru.vlbb.workday.repository.inmemory.InMemoryOperationRepository;
 import ru.vlbb.workday.util.OperationUtil;
 
 import javax.servlet.ServletException;

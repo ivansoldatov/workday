@@ -1,13 +1,15 @@
 package ru.vlbb.workday.service;
 
+import org.springframework.stereotype.Service;
 import ru.vlbb.workday.model.Employee;
 import ru.vlbb.workday.repository.EmployeeRepository;
 
 import java.util.List;
 
-import static ru.vlbb.workday.util.ValidationUtil.checkNotFound;
+
 import static ru.vlbb.workday.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class EmployeeService {
 
     private EmployeeRepository repository;
