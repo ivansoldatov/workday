@@ -1,4 +1,6 @@
-package ru.vlbb.workday.model;
+package ru.vlbb.workday.to;
+
+import ru.vlbb.workday.model.AbstractBaseEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

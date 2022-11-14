@@ -9,16 +9,18 @@ public class Operation extends AbstractBaseEntity {
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String description;
+    private final Integer employeeId;
 
-    public Operation(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
+    public Operation(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Integer employeeId) {
         super(id);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
+        this.employeeId = employeeId;
     }
 
-    public Operation(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
-        this(null, startDateTime, endDateTime, description);
+    public Operation(LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Integer employeeId) {
+        this(null, startDateTime, endDateTime, description, employeeId);
     }
 
     public LocalDateTime getStartDateTime() {
@@ -48,6 +50,8 @@ public class Operation extends AbstractBaseEntity {
     public String getDescription() {
         return description;
     }
+
+    public Integer getEmployeeId() { return employeeId; }
 
     public double getIntervalInHours() {
         double interval = (startDateTime.toEpochSecond(ZoneOffset.UTC) - endDateTime.toEpochSecond(ZoneOffset.UTC)) / 60 / 60.0;

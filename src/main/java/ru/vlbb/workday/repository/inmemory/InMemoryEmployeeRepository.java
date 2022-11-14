@@ -4,11 +4,12 @@ import org.springframework.stereotype.Repository;
 import ru.vlbb.workday.model.Employee;
 import ru.vlbb.workday.repository.EmployeeRepository;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryEmployeeRepository implements EmployeeRepository {
@@ -38,6 +39,8 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
 
     @Override
     public List<Employee> getAll() {
-        return new ArrayList<>(repository.values());
+        return repository.values().stream()
+                .sorted(Comparator.comparing(Employee::getName))
+                .collect(Collectors.toList());
     }
 }

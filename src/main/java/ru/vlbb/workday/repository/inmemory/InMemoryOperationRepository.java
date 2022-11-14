@@ -17,11 +17,11 @@ public class InMemoryOperationRepository implements OperationRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
-        OperationUtil.operations.forEach(this::save);
+        OperationUtil.operations.forEach(operation -> save(operation, 1));
     }
 
     @Override
-    public Operation save(Operation operation) {
+    public Operation save(Operation operation, Integer employeeId) {
         if (operation.isNew()) {
             operation.setId(counter.getAndIncrement());
             repository.put(operation.getId(), operation);
@@ -31,17 +31,17 @@ public class InMemoryOperationRepository implements OperationRepository {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int id, Integer employeeId) {
         return repository.remove(id) != null;
     }
 
     @Override
-    public Operation get(int id) {
+    public Operation get(int id, Integer employeeId) {
         return repository.get(id);
     }
 
     @Override
-    public Collection<Operation> getAll() {
+    public Collection<Operation> getAll(Integer employeeId) {
         return repository.values();
     }
 }

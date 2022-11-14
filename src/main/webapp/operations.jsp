@@ -27,7 +27,7 @@
         </tr>
         </thead>
         <c:forEach items="${requestScope.operations}" var="operation">
-            <jsp:useBean id="operation" type="ru.vlbb.workday.model.OperationTo"/>
+            <jsp:useBean id="operation" type="ru.vlbb.workday.to.OperationTo"/>
         <tr class="${operation.excess ? 'excess' : 'normal'}">
             <td style="text-align: center">
                     ${fn:formatDate(operation.startDateTime)}
