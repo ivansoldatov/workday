@@ -39,4 +39,8 @@ public class ValidationUtil {
             throw new IllegalArgumentException(entity + " must be with id=" + id);
         }
     }
+
+    public static boolean belongToEmployeeId (AbstractBaseEntity entity, int id) {
+        return entity.getId()==id;
+    }
 }
