@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static ru.vlbb.workday.util.ValidationUtil.belongToEmployeeId;
+
 @Repository
 public class InMemoryOperationRepository implements OperationRepository {
 
@@ -21,27 +23,27 @@ public class InMemoryOperationRepository implements OperationRepository {
     }
 
     @Override
-    public Operation save(Operation operation, Integer employeeId) {
+    public Operation save(Operation operation, int employeeId) {
         if (operation.isNew()) {
             operation.setId(counter.getAndIncrement());
             repository.put(operation.getId(), operation);
             return operation;
         }
-        return repository.computeIfPresent(operation.getId(), (id, oldOperation) -> operation);
+        return belongToEmployeeId(operation, employeeId) ? operation : null;
     }
 
     @Override
-    public boolean delete(int id, Integer employeeId) {
-        return repository.remove(id) != null;
+    public boolean delete(int id, int employeeId) {
+        return belongToEmployeeId(repository.get(id), employeeId) && repository.remove(id) != null;
     }
 
     @Override
-    public Operation get(int id, Integer employeeId) {
-        return repository.get(id);
+    public Operation get(int id, int employeeId) {
+        return belongToEmployeeId(repository.get(id), employeeId) ? repository.get(id) : null;
     }
 
     @Override
-    public Collection<Operation> getAll(Integer employeeId) {
+    public Collection<Operation> getAll(int employeeId) {
         return repository.values();
     }
 }

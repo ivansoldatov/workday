@@ -5,14 +5,15 @@ import ru.vlbb.workday.model.Operation;
 import java.util.Collection;
 
 public interface OperationRepository {
-    // null if not found, when updated
-    Operation save(Operation operation, Integer employeeId);
+    // null if updated meal does not belong to userId
+    Operation save(Operation operation, int employeeId);
 
-    // false if not found
-    boolean delete(int id, Integer employeeId);
+    // false if meal does not belong to userId
+    boolean delete(int id, int employeeId);
 
-    // null if not found
-    Operation get(int id, Integer employeeId);
+    /// null if updated meal does not belong to userId
+    Operation get(int id, int employeeId);
 
-    Collection<Operation> getAll(Integer employeeId);
+    // ORDERED dateTime desc
+    Collection<Operation> getAll(int employeeId);
 }
