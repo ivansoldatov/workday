@@ -31,7 +31,7 @@ public class InMemoryOperationRepository implements OperationRepository {
             repository.put(operation.getId(), operation);
             return operation;
         }
-        return belongToEmployeeId(operation, employeeId) ? operation : null;
+        return belongToEmployeeId(operation, employeeId) ? repository.computeIfPresent(operation.getId(), (id, oldOperation) -> operation) : null;
     }
 
     @Override

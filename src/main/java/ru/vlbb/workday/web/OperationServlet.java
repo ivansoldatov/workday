@@ -17,6 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import static ru.vlbb.workday.web.SecurityUtil.authEmployeeId;
 
 public class OperationServlet extends HttpServlet {
     private static final Logger log = getLogger(OperationServlet.class);
@@ -36,20 +37,20 @@ public class OperationServlet extends HttpServlet {
             case "delete":
                 int id = getId(request);
                 log.info("delete id={}", id);
-                repository.delete(id);
+                repository.delete(id, authEmployeeId());
                 response.sendRedirect("operations");
                 break;
             case "create":
             case "update":
                 final Operation operation = "create".equals(action) ?
-                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation") :
-                        repository.get(getId(request));
+                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation",authEmployeeId()) :
+                        repository.get(getId(request),authEmployeeId());
                 request.setAttribute("operation", operation);
                 request.getRequestDispatcher("/operationForm.jsp").forward(request, response);
             case "all":
             default:
                 log.info("getAll");
-                request.setAttribute("operations", OperationUtil.getTos(repository.getAll(), 33.3));
+                request.setAttribute("operations", OperationUtil.getTos(repository.getAll(authEmployeeId()), 33.3));
                 request.getRequestDispatcher("/operations.jsp").forward(request, response);
                 break;
         }
@@ -63,10 +64,10 @@ public class OperationServlet extends HttpServlet {
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("endTime")));
         String description = request.getParameter("description");
 
-        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description);
+        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description, authEmployeeId());
 
         log.info(operation.isNew() ? "Create {}" : "Update {}", operation);
-        repository.save(operation);
+        repository.save(operation,authEmployeeId());
         response.sendRedirect("operations");
     }
 
