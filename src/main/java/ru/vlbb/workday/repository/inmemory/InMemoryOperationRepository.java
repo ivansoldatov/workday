@@ -6,9 +6,11 @@ import ru.vlbb.workday.repository.OperationRepository;
 import ru.vlbb.workday.util.OperationUtil;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static ru.vlbb.workday.util.ValidationUtil.belongToEmployeeId;
 
@@ -44,6 +46,9 @@ public class InMemoryOperationRepository implements OperationRepository {
 
     @Override
     public Collection<Operation> getAll(int employeeId) {
-        return repository.values();
+        return repository.values().stream()
+                .filter(operation -> operation.getEmployeeId() == employeeId)
+                .sorted(Comparator.comparing(Operation::getStartDateTime).reversed())
+                .collect(Collectors.toList());
     }
 }
