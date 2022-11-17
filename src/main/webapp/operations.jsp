@@ -5,6 +5,15 @@
 <html lang="ru">
 <head>
     <title>Operations</title>
+    <style>
+        .normal {
+            color: green;
+        }
+
+        .excess {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <section>

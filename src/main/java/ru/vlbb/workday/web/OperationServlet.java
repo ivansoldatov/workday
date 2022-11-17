@@ -50,7 +50,7 @@ public class OperationServlet extends HttpServlet {
             case "all":
             default:
                 log.info("getAll");
-                request.setAttribute("operations", OperationUtil.getTos(repository.getAll(authEmployeeId()), 33.3));
+                request.setAttribute("operations", OperationUtil.getTos(repository.getAll(authEmployeeId()), OperationUtil.DEFAULT_MINUTES_IN_DAY));
                 request.getRequestDispatcher("/operations.jsp").forward(request, response);
                 break;
         }

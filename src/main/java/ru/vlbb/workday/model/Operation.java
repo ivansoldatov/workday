@@ -1,9 +1,7 @@
 package ru.vlbb.workday.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class Operation extends AbstractBaseEntity {
     private final LocalDateTime startDateTime;
@@ -53,9 +51,14 @@ public class Operation extends AbstractBaseEntity {
 
     public Integer getEmployeeId() { return employeeId; }
 
-    public double getIntervalInHours() {
-        double interval = (startDateTime.toEpochSecond(ZoneOffset.UTC) - endDateTime.toEpochSecond(ZoneOffset.UTC)) / 60 / 60.0;
-        return (Math.round(interval * 100.0) / 100.0);
+    public int getIntervalInMinutes() {
+        long minutes= ChronoUnit.MINUTES.between(startDateTime,endDateTime);
+//        Duration d = Duration.between(startDateTime, endDateTime);
+//         return d.toMinutesPart();
+        return (int)minutes;
+//        double interval = (startDateTime.toEpochSecond(ZoneOffset.UTC) - endDateTime.toEpochSecond(ZoneOffset.UTC)) / 60 / 60.0;
+//        return (Math.round(minutes/60.0) / 100.0);
+
     }
 }
 
