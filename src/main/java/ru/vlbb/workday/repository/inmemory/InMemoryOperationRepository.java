@@ -1,5 +1,7 @@
 package ru.vlbb.workday.repository.inmemory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.vlbb.workday.model.Operation;
 import ru.vlbb.workday.repository.OperationRepository;
@@ -14,6 +16,7 @@ import static ru.vlbb.workday.util.ValidationUtil.belongToEmployeeId;
 
 @Repository
 public class InMemoryOperationRepository implements OperationRepository {
+    private static final Logger log = LoggerFactory.getLogger(InMemoryEmployeeRepository.class);
 
     private final Map<Integer, Operation> repository = new ConcurrentHashMap<>();
     private final AtomicInteger counter = new AtomicInteger(0);

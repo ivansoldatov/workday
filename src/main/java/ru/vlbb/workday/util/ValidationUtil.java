@@ -1,6 +1,7 @@
 package ru.vlbb.workday.util;
 
 import ru.vlbb.workday.model.AbstractBaseEntity;
+import ru.vlbb.workday.model.Operation;
 import ru.vlbb.workday.util.exception.NotFoundException;
 
 public class ValidationUtil {
@@ -40,7 +41,5 @@ public class ValidationUtil {
         }
     }
 
-    public static boolean belongToEmployeeId (AbstractBaseEntity entity, int id) {
-        return entity.getId()==id;
-    }
+    public static boolean belongToEmployeeId (Operation operation, int employeeId) {return operation.getEmployeeId()==employeeId;}
 }

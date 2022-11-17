@@ -10,12 +10,12 @@
 
     <function>
         <name>formatDate</name>
-        <function-class>ru.vlbb.workday.util.TimeUtil</function-class>
+        <function-class>ru.vlbb.workday.util.DateTimeUtil</function-class>
         <function-signature>java.lang.String dateToString(java.time.LocalDateTime)</function-signature>
     </function>
     <function>
         <name>formatTime</name>
-        <function-class>ru.vlbb.workday.util.TimeUtil</function-class>
+        <function-class>ru.vlbb.workday.util.DateTimeUtil</function-class>
         <function-signature>java.lang.String timeToString(java.time.LocalDateTime)</function-signature>
     </function>
 </taglib>

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class TimeUtil {
+public class DateTimeUtil {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -19,6 +19,7 @@ public class TimeUtil {
     public static String dateToString(LocalDateTime ldt) {
         return ldt == null ? "" : ldt.format(DATE_FORMATTER);
     }
+
     public static String timeToString(LocalDateTime ldt) {
         return ldt == null ? "" : ldt.format(TIME_FORMATTER);
     }
