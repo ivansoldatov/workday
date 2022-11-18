@@ -25,6 +25,7 @@ public class InMemoryOperationRepository implements OperationRepository {
         OperationUtil.operations.forEach(operation -> save(operation, 1));
     }
 
+
     @Override
     public Operation save(Operation operation, int employeeId) {
         if (operation.isNew()) {
@@ -37,7 +38,9 @@ public class InMemoryOperationRepository implements OperationRepository {
 
     @Override
     public boolean delete(int id, int employeeId) {
-        return belongToEmployeeId(repository.get(id), employeeId) && repository.remove(id) != null;
+        if (belongToEmployeeId(repository.get(id), employeeId)) {
+        return  repository.remove(id) != null; }
+        return false;
     }
 
     @Override

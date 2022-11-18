@@ -20,6 +20,10 @@ public class OperationRestController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
     private OperationService service;
 
+    OperationRestController(OperationService service) {
+        this.service=service;
+    }
+
     public List<Operation> getAll() {
         log.info("getAll");
         return new ArrayList<>(service.getAll(authEmployeeId()));

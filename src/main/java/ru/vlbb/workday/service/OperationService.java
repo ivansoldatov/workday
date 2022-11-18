@@ -13,6 +13,10 @@ public class OperationService {
 
     private OperationRepository repository;
 
+    OperationService(OperationRepository operationRepository) {
+        this.repository=operationRepository;
+    }
+
     public Operation create(Operation operation, int employeeId) {
         return repository.save(operation, employeeId);
     }

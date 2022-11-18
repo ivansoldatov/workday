@@ -1,9 +1,12 @@
 package ru.vlbb.workday.web;
 
 import org.slf4j.Logger;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.vlbb.workday.model.Operation;
 import ru.vlbb.workday.repository.inmemory.InMemoryOperationRepository;
 import ru.vlbb.workday.util.OperationUtil;
+import ru.vlbb.workday.web.operation.OperationRestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,20 +34,22 @@ public class OperationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        OperationRestController orc = appCtx.getBean(OperationRestController.class);
         String action = request.getParameter("action");
 
         switch (action == null ? "all" : action) {
             case "delete":
                 int id = getId(request);
                 log.info("delete id={}", id);
-                repository.delete(id, authEmployeeId());
+                orc.delete(id);
                 response.sendRedirect("operations");
                 break;
             case "create":
             case "update":
                 final Operation operation = "create".equals(action) ?
-                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation",authEmployeeId()) :
-                        repository.get(getId(request),authEmployeeId());
+                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation", authEmployeeId()) :
+                        orc.get(getId(request));
                 request.setAttribute("operation", operation);
                 request.getRequestDispatcher("/operationForm.jsp").forward(request, response);
             case "all":
@@ -67,7 +72,7 @@ public class OperationServlet extends HttpServlet {
         Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description, authEmployeeId());
 
         log.info(operation.isNew() ? "Create {}" : "Update {}", operation);
-        repository.save(operation,authEmployeeId());
+        repository.save(operation, authEmployeeId());
         response.sendRedirect("operations");
     }
 
