@@ -7,12 +7,12 @@ import ru.vlbb.workday.model.Operation;
 import ru.vlbb.workday.repository.OperationRepository;
 import ru.vlbb.workday.util.OperationUtil;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-
-import static ru.vlbb.workday.util.ValidationUtil.belongToEmployeeId;
 
 @Repository
 public class InMemoryOperationRepository implements OperationRepository {
@@ -25,7 +25,6 @@ public class InMemoryOperationRepository implements OperationRepository {
         OperationUtil.operations.forEach(operation -> save(operation, 1));
     }
 
-
     @Override
     public Operation save(Operation operation, int employeeId) {
         if (operation.isNew()) {
@@ -33,19 +32,17 @@ public class InMemoryOperationRepository implements OperationRepository {
             repository.put(operation.getId(), operation);
             return operation;
         }
-        return belongToEmployeeId(operation, employeeId) ? repository.computeIfPresent(operation.getId(), (id, oldOperation) -> operation) : null;
+        return repository.computeIfPresent(operation.getId(), (id, oldOperation) -> operation);
     }
 
     @Override
     public boolean delete(int id, int employeeId) {
-        if (belongToEmployeeId(repository.get(id), employeeId)) {
-        return  repository.remove(id) != null; }
-        return false;
+        return repository.remove(id) != null;
     }
 
     @Override
     public Operation get(int id, int employeeId) {
-        return belongToEmployeeId(repository.get(id), employeeId) ? repository.get(id) : null;
+        return repository.get(id);
     }
 
     @Override
