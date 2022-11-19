@@ -7,7 +7,7 @@ public class Operation extends AbstractBaseEntity {
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String description;
-    private final Integer employeeId;
+    private Integer employeeId;
 
     public Operation(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Integer employeeId) {
         super(id);

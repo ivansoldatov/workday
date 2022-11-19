@@ -41,6 +41,4 @@ public class ValidationUtil {
         }
     }
 
-    public static boolean belongToEmployeeId (Operation operation, int employeeId) {
-        return operation.getEmployeeId()==employeeId;}
 }
