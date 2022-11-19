@@ -1,24 +1,24 @@
 package ru.vlbb.workday.model;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class Operation extends AbstractBaseEntity {
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String description;
-    private Integer employeeId;
 
-    public Operation(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Integer employeeId) {
+    public Operation(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
         super(id);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
-        this.employeeId = employeeId;
     }
 
-    public Operation(LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Integer employeeId) {
-        this(null, startDateTime, endDateTime, description, employeeId);
+    public Operation(LocalDateTime startDateTime, LocalDateTime endDateTime, String description) {
+        this(null, startDateTime, endDateTime, description);
     }
 
     public LocalDateTime getStartDateTime() {
@@ -49,13 +49,11 @@ public class Operation extends AbstractBaseEntity {
         return description;
     }
 
-    public Integer getEmployeeId() { return employeeId; }
-
     public int getIntervalInMinutes() {
-        long minutes= ChronoUnit.MINUTES.between(startDateTime,endDateTime);
+        long minutes = ChronoUnit.MINUTES.between(startDateTime, endDateTime);
 //        Duration d = Duration.between(startDateTime, endDateTime);
 //         return d.toMinutesPart();
-        return (int)minutes;
+        return (int) minutes;
 //        double interval = (startDateTime.toEpochSecond(ZoneOffset.UTC) - endDateTime.toEpochSecond(ZoneOffset.UTC)) / 60 / 60.0;
 //        return (Math.round(minutes/60.0) / 100.0);
 

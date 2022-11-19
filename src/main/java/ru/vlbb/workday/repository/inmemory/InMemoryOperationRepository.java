@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class InMemoryOperationRepository implements OperationRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryEmployeeRepository.class);
 
-    private final Map<Integer, Operation> repository = new ConcurrentHashMap<>();
+    private final Map<Integer, Map<Integer, Operation>> employeeOperationsMap = new ConcurrentHashMap<>();
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
@@ -27,30 +27,32 @@ public class InMemoryOperationRepository implements OperationRepository {
 
     @Override
     public Operation save(Operation operation, int employeeId) {
+        Map<Integer, Operation> operations = employeeOperationsMap.computeIfAbsent(employeeId, eId -> new ConcurrentHashMap<>());
         if (operation.isNew()) {
-            operation.setId(counter.getAndIncrement());
-            repository.put(operation.getId(), operation);
+            operation.setId(counter.incrementAndGet());
+            operations.put(operation.getId(), operation);
             return operation;
         }
-        return repository.computeIfPresent(operation.getId(), (id, oldOperation) -> operation);
+        return operations.computeIfPresent(operation.getId(), (id, oldOperation) -> operation);
     }
 
     @Override
     public boolean delete(int id, int employeeId) {
-        return repository.remove(id) != null;
+        Map<Integer, Operation> operations = employeeOperationsMap.get(employeeId);
+        return operations != null && operations.remove(id) != null;
     }
 
     @Override
     public Operation get(int id, int employeeId) {
-        return repository.get(id);
+        Map<Integer, Operation> operations = employeeOperationsMap.get(employeeId);
+        return operations == null ? null : operations.get(id);
     }
 
     @Override
     public Collection<Operation> getAll(int employeeId) {
-        return repository.values().stream()
-                .filter(operation -> operation.getEmployeeId() == employeeId)
+        Map<Integer, Operation> operations = employeeOperationsMap.get(employeeId);
+        return operations.values().stream()
                 .sorted(Comparator.comparing(Operation::getStartDateTime).reversed())
                 .collect(Collectors.toList());
-//        return employees != null ? employees : new ArrayList<Operation>();
     }
 }

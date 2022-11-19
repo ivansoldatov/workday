@@ -11,15 +11,13 @@ public class OperationTo extends AbstractBaseEntity {
     private final LocalDateTime endDateTime;
     private final String description;
     private final boolean excess;
-    private final Integer employeeId;
 
-    public OperationTo(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, boolean excess, Integer employeeId) {
+    public OperationTo(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, boolean excess) {
         super(id);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
         this.excess = excess;
-        this.employeeId = employeeId;
     }
 
     public Integer getId() {
@@ -61,6 +59,4 @@ public class OperationTo extends AbstractBaseEntity {
     public boolean isExcess() {
         return excess;
     }
-
-    public Integer getEmployeeId() {return employeeId; }
 }
