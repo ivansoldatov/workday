@@ -3,7 +3,7 @@ package ru.vlbb.workday.web.employee;
 
 
 import org.springframework.stereotype.Controller;
-import ru.vlbb.workday.model.Employee;
+import ru.vlbb.workday.model.User;
 
 import java.util.List;
 
@@ -11,18 +11,18 @@ import java.util.List;
 public class AdminRestController extends AbstractEmployeeController {
 
     @Override
-    public List<Employee> getAll() {
+    public List<User> getAll() {
         return super.getAll();
     }
 
     @Override
-    public Employee get(int id) {
+    public User get(int id) {
         return super.get(id);
     }
 
     @Override
-    public Employee create(Employee employee) {
-        return super.create(employee);
+    public User create(User user) {
+        return super.create(user);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class AdminRestController extends AbstractEmployeeController {
     }
 
     @Override
-    public void update(Employee employee, int id) {
-        super.update(employee, id);
+    public void update(User user, int id) {
+        super.update(user, id);
     }
 
 }

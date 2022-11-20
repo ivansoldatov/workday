@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
-public class Employee extends AbstractNamedEntity {
+public class User extends AbstractNamedEntity {
 
     private String login;
 
@@ -16,11 +16,11 @@ public class Employee extends AbstractNamedEntity {
 
     private Set<Role> roles;
 
-    public Employee(Integer id, String name, String login, String password, Role role, Role... roles) {
+    public User(Integer id, String name, String login, String password, Role role, Role... roles) {
         this (id, name, login, password, true, EnumSet.of(role, roles));
     }
 
-    public Employee(Integer id, String name, String login, String password, boolean enabled, Set<Role> roles) {
+    public User(Integer id, String name, String login, String password, boolean enabled, Set<Role> roles) {
         super(id, name);
         this.login = login;
         this.password = password;

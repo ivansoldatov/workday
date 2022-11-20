@@ -2,7 +2,7 @@ package ru.vlbb.workday;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.vlbb.workday.model.Employee;
+import ru.vlbb.workday.model.User;
 import ru.vlbb.workday.model.Role;
 import ru.vlbb.workday.service.EmployeeService;
 import ru.vlbb.workday.web.employee.AdminRestController;
@@ -17,7 +17,7 @@ public class SpringMain {
             EmployeeService employeeService = appCtx.getBean(EmployeeService.class);
 
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
-            adminUserController.create(new Employee(null, "EmployeeName", "login", "password", Role.ADMIN));
+            adminUserController.create(new User(null, "EmployeeName", "login", "password", Role.ADMIN));
         }
     }
 }

@@ -1,8 +1,8 @@
 package ru.vlbb.workday.service;
 
 import org.springframework.stereotype.Service;
-import ru.vlbb.workday.model.Employee;
-import ru.vlbb.workday.repository.EmployeeRepository;
+import ru.vlbb.workday.model.User;
+import ru.vlbb.workday.repository.UserRepository;
 
 import java.util.List;
 
@@ -12,25 +12,25 @@ import static ru.vlbb.workday.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class EmployeeService {
 
-    private EmployeeRepository repository;
+    private UserRepository repository;
 
-    public Employee create(Employee employee) {
-        return repository.save(employee);
+    public User create(User user) {
+        return repository.save(user);
     }
 
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
-    public Employee get(int id) {
+    public User get(int id) {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public List<Employee> getAll() {
+    public List<User> getAll() {
         return repository.getAll();
     }
 
-    public void update(Employee employee) {
-        checkNotFoundWithId(repository.save(employee), employee.getId());
+    public void update(User user) {
+        checkNotFoundWithId(repository.save(user), user.getId());
     }
 }

@@ -12,10 +12,6 @@ public class DateTimeUtil {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH-mm");
 
-    public static boolean isBetweenHalfOpen(Operation action, LocalTime startTime, LocalTime endTime) {
-        return action.getStartTime().compareTo(startTime) >= 0 && action.getEndTime().compareTo(endTime) < 0;
-    }
-
     public static String dateToString(LocalDateTime ldt) {
         return ldt == null ? "" : ldt.format(DATE_FORMATTER);
     }

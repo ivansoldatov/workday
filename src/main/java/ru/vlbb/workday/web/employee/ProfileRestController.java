@@ -1,14 +1,14 @@
 package ru.vlbb.workday.web.employee;
 
 import org.springframework.stereotype.Controller;
-import ru.vlbb.workday.model.Employee;
+import ru.vlbb.workday.model.User;
 
 import static ru.vlbb.workday.web.SecurityUtil.authEmployeeId;
 
 @Controller
 public class ProfileRestController extends AbstractEmployeeController {
 
-    public Employee get() {
+    public User get() {
         return super.get(authEmployeeId());
     }
 
@@ -16,7 +16,7 @@ public class ProfileRestController extends AbstractEmployeeController {
         super.delete(authEmployeeId());
     }
 
-    public void update(Employee employee) {
-        super.update(employee, authEmployeeId());
+    public void update(User user) {
+        super.update(user, authEmployeeId());
     }
 }

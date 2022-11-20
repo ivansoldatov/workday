@@ -2,7 +2,9 @@ package ru.vlbb.workday.repository;
 
 import ru.vlbb.workday.model.Operation;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 public interface OperationRepository {
     // null if updated meal does not belong to userId
@@ -15,5 +17,8 @@ public interface OperationRepository {
     Operation get(int id, int employeeId);
 
     // ORDERED dateTime desc
-    Collection<Operation> getAll(int employeeId);
+    List<Operation> getAll(int employeeId);
+
+    // ORDERED dateTime desc
+    List<Operation> getBetweenHalfOpen(LocalDateTime startDateTime, LocalDateTime endDateTime, int employeeId);
 }

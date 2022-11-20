@@ -10,7 +10,7 @@
 
     <version>1.0-SNAPSHOT</version>
 
-    <name>Workday employee</name>
+    <name>Workday user</name>
     <url>http://vlbb.ru/</url>
 
     <properties>

@@ -2,7 +2,7 @@ package ru.vlbb.workday.web.employee;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.vlbb.workday.model.Employee;
+import ru.vlbb.workday.model.User;
 import ru.vlbb.workday.service.EmployeeService;
 
 import java.util.List;
@@ -15,20 +15,20 @@ public abstract class AbstractEmployeeController {
 
     private EmployeeService service;
 
-    public List<Employee> getAll() {
+    public List<User> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
-    public Employee get(int id) {
+    public User get(int id) {
         log.info("get {}", id);
         return service.get(id);
     }
 
-    public Employee create(Employee employee) {
-        log.info("create {}", employee);
-        checkNew(employee);
-        return service.create(employee);
+    public User create(User user) {
+        log.info("create {}", user);
+        checkNew(user);
+        return service.create(user);
     }
 
     public void delete(int id) {
@@ -36,9 +36,9 @@ public abstract class AbstractEmployeeController {
         service.delete(id);
     }
 
-    public void update(Employee employee, int id) {
-        log.info("update {} with id={}", employee, id);
-        assureIdConsistent(employee, id);
-        service.update(employee);
+    public void update(User user, int id) {
+        log.info("update {} with id={}", user, id);
+        assureIdConsistent(user, id);
+        service.update(user);
     }
 }
