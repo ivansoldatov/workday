@@ -6,14 +6,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class OperationTo extends AbstractBaseEntity {
+public class OperationTo {
+    private final Integer id;
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String description;
     private final boolean excess;
 
     public OperationTo(Integer id, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, boolean excess) {
-        super(id);
+        this.id = id;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
@@ -22,10 +23,6 @@ public class OperationTo extends AbstractBaseEntity {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public LocalDateTime getStartDateTime() {

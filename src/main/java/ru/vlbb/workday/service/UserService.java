@@ -10,7 +10,7 @@ import java.util.List;
 import static ru.vlbb.workday.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
-public class EmployeeService {
+public class UserService {
 
     private UserRepository repository;
 

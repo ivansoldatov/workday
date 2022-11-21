@@ -20,7 +20,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
-import static ru.vlbb.workday.web.SecurityUtil.authEmployeeId;
 
 public class OperationServlet extends HttpServlet {
     private static final Logger log = getLogger(OperationServlet.class);
@@ -50,7 +49,7 @@ public class OperationServlet extends HttpServlet {
             case "create":
             case "update":
                 final Operation operation = "create".equals(action) ?
-                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation",authEmployeeId()) :
+                        new Operation(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().plusMinutes(15).truncatedTo(ChronoUnit.MINUTES), "new operation") :
                         operationController.get(getId(request));
                 request.setAttribute("operation", operation);
                 request.getRequestDispatcher("/operationForm.jsp").forward(request, response);
@@ -71,7 +70,7 @@ public class OperationServlet extends HttpServlet {
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("endTime")));
         String description = request.getParameter("description");
 
-        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description, authEmployeeId());
+        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description);
 
         if (StringUtils.hasLength(request.getParameter("id"))) {
             operationController.update(operation, getId(request));

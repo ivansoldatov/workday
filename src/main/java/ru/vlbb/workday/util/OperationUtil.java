@@ -5,6 +5,7 @@ import ru.vlbb.workday.to.OperationTo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,8 +36,8 @@ public class OperationUtil {
         return filteredByPredicate(operations, normInDay, operation -> true);
     }
 
-    public static List<OperationTo> getFilteredTos(Collection<Operation> operations, int normInDay, LocalDateTime startTime, LocalDateTime endTime) {
-        return filteredByPredicate(operations, normInDay, operation -> Util.isBetweenHalfOpen(operation.getStartDateTime(), startTime, endTime));
+    public static List<OperationTo> getFilteredTos(Collection<Operation> operations, int normInDay, LocalTime startTime, LocalTime endTime) {
+        return filteredByPredicate(operations, normInDay, operation -> Util.isBetweenHalfOpen(operation.getStartTime(), startTime, endTime));
     }
 
     public static List<OperationTo> filteredByPredicate(Collection<Operation> operations, int normInDay, Predicate<Operation> filter) {
