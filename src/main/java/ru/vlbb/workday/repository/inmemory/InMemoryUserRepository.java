@@ -14,39 +14,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Repository
-public class InMemoryUserRepository implements UserRepository {
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
+public class InMemoryUserRepository extends InMemoryBaseRepository<User> implements UserRepository {
 
-    public static final int USER_ID = 1;
-    public static final int ADMIN_ID = 2;
-
-    private final Map<Integer, User> userMap = new ConcurrentHashMap<>();
-    private final AtomicInteger counter = new AtomicInteger(0);
-
-    @Override
-    public User save(User user) {
-        if (user.isNew()) {
-            user.setId(counter.getAndIncrement());
-            userMap.put(user.getId(), user);
-            return user;
-        }
-        return userMap.computeIfPresent(user.getId(), (id, oldUser) -> user);
-    }
-
-    @Override
-    public boolean delete(int id) {
-        return userMap.remove(id) != null;
-    }
-
-    @Override
-    public User get(int id) {
-        return userMap.get(id);
-    }
+    static final int USER_ID = 1;
+    static final int ADMIN_ID = 2;
 
     @Override
     public List<User> getAll() {
-        return userMap.values().stream()
+        return getCollection().stream()
                 .sorted(Comparator.comparing(User::getName))
                 .collect(Collectors.toList());
     }
+
+
 }
+
