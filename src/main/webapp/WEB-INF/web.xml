@@ -7,13 +7,13 @@
     <display-name>Workday</display-name>
 
     <servlet>
-        <servlet-name>employeeServlet</servlet-name>
-        <servlet-class>ru.vlbb.workday.web.EmployeeServlet</servlet-class>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>ru.vlbb.workday.web.UserServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>employeeServlet</servlet-name>
-        <url-pattern>/employees</url-pattern>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>operationServlet</servlet-name>

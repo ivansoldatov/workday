@@ -1,5 +1,7 @@
 package ru.vlbb.workday.util;
 
+import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
 import ru.vlbb.workday.model.Operation;
 
 import java.time.LocalDate;
@@ -31,5 +33,15 @@ public class DateTimeUtil {
 
     public static String timeToString(LocalDateTime ldt) {
         return ldt == null ? "" : ldt.format(TIME_FORMATTER);
+    }
+
+    public static @Nullable
+    LocalDate parseLocalDate(@Nullable String str) {
+        return StringUtils.hasLength(str) ? LocalDate.parse(str) : null;
+    }
+
+    public static @Nullable
+    LocalTime parseLocalTime(@Nullable String str) {
+        return StringUtils.hasLength(str) ? LocalTime.parse(str) : null;
     }
 }

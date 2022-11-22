@@ -20,6 +20,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import static ru.vlbb.workday.util.DateTimeUtil.parseLocalDate;
+import static ru.vlbb.workday.util.DateTimeUtil.parseLocalTime;
 
 public class OperationServlet extends HttpServlet {
     private static final Logger log = getLogger(OperationServlet.class);
@@ -77,6 +79,14 @@ public class OperationServlet extends HttpServlet {
                         operationController.get(getId(request));
                 request.setAttribute("operation", operation);
                 request.getRequestDispatcher("/operationForm.jsp").forward(request, response);
+            case "filter":
+                LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
+                LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
+                LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
+                LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
+                request.setAttribute("operations", operationController.getBetween(startDate, startTime, endDate, endTime));
+                request.getRequestDispatcher("/operations.jsp").forward(request, response);
+                break;
             case "all":
             default:
                 log.info("getAll");

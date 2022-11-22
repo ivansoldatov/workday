@@ -5,22 +5,33 @@
 <html lang="ru">
 <head>
     <title>Operations</title>
-    <style>
-        .normal {
-            color: green;
-        }
-
-        .excess {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
-    <hr>
-    <h2 style="text-align: center">Operations</h2>
-    <%--    <a href="actions?step=create" style="text-align: center">Add Action</a>--%>
+    <hr/>
+    <h2>Meals</h2>
+    <form method="get" action="operations">
+        <input type="hidden" name="action" value="filter">
+        <dl>
+            <dt>From Date (inclusive):</dt>
+            <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
+        </dl>
+        <dl>
+            <dt>To Date (inclusive):</dt>
+            <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
+        </dl>
+        <dl>
+            <dt>From Time (inclusive):</dt>
+            <dd><input type="time" name="startTime" value="${param.startTime}"></dd>
+        </dl>
+        <dl>
+            <dt>To Time (exclusive):</dt>
+            <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
+        </dl>
+        <button type="submit">Filter</button>
+    </form>
+    <hr/>
     <div style='text-align:center; width:100%'><a href="operations?action=create" style="text-align: center">Add
         Operation</a></div>
     <br>
@@ -37,7 +48,7 @@
         </thead>
         <c:forEach items="${requestScope.operations}" var="operation">
             <jsp:useBean id="operation" type="ru.vlbb.workday.to.OperationTo"/>
-        <tr class="${operation.excess ? 'excess' : 'normal'}">
+        <tr data-meal-excess="${operation.excess}">
             <td style="text-align: center">
                     ${fn:formatDate(operation.startDateTime)}
             </td>
