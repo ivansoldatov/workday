@@ -8,6 +8,8 @@ import ru.vlbb.workday.repository.OperationRepository;
 import ru.vlbb.workday.util.OperationUtil;
 import ru.vlbb.workday.util.Util;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collections;
@@ -37,6 +39,16 @@ public class InMemoryOperationRepository implements OperationRepository {
     public Operation save(Operation Operation, int userId) {
         InMemoryBaseRepository<Operation> Operations = usersOperationsMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
         return Operations.save(Operation);
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("+++ PostConstruct");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        log.info("+++ PreDestroy");
     }
 
     @Override
