@@ -36,6 +36,30 @@ public class OperationServlet extends HttpServlet {
     }
 
     @Override
+    public void destroy() {
+        springContext.close();
+        super.destroy();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String id = request.getParameter("id");
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("startTime")));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("endTime")));
+        String description = request.getParameter("description");
+
+        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description);
+
+        if (StringUtils.hasLength(request.getParameter("id"))) {
+            operationController.update(operation, getId(request));
+        } else {
+            operationController.create(operation);
+        }
+        response.sendRedirect("operations");
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
@@ -62,26 +86,10 @@ public class OperationServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("id");
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("startTime")));
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(request.getParameter("startDate")), LocalTime.parse(request.getParameter("endTime")));
-        String description = request.getParameter("description");
-
-        Operation operation = new Operation(id.isEmpty() ? null : Integer.valueOf(id), startDateTime, endDateTime, description);
-
-        if (StringUtils.hasLength(request.getParameter("id"))) {
-            operationController.update(operation, getId(request));
-        } else {
-            operationController.create(operation);
-        }
-        response.sendRedirect("operations");
-    }
-
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.parseInt(paramId);
     }
+
+
 }

@@ -48,18 +48,20 @@ public class OperationRestController {
         return service.create(operation, userId);
     }
 
-    public void delete(int id) {
-        int userId = SecurityUtil.authUserId();
-        log.info("delete operation {} for user {}", id, userId);
-        service.delete(id, userId);
-    }
-
     public void update(Operation operation, int id) {
         int userId = SecurityUtil.authUserId();
         assureIdConsistent(operation, id);
         log.info("update {} for user={}", operation, userId);
         service.update(operation, userId);
     }
+
+    public void delete(int id) {
+        int userId = SecurityUtil.authUserId();
+        log.info("delete operation {} for user {}", id, userId);
+        service.delete(id, userId);
+    }
+
+
 
     /**
      * <ol>Filter separately
