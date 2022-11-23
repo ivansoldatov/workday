@@ -1,8 +1,8 @@
 package ru.vlbb.workday.model;
 
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 public class User extends AbstractNamedEntity {
 
@@ -16,16 +16,16 @@ public class User extends AbstractNamedEntity {
 
     private Set<Role> roles;
 
-    public User(Integer id, String name, String login, String password, Role role, Role... roles) {
-        this (id, name, login, password, true, EnumSet.of(role, roles));
+    public User(Integer id, String name, String login, String password, Role... roles) {
+        this(id, name, login, password, true, Arrays.asList((roles)));
     }
 
-    public User(Integer id, String name, String login, String password, boolean enabled, Set<Role> roles) {
+    public User(Integer id, String name, String login, String password, boolean enabled, Collection<Role> roles) {
         super(id, name);
         this.login = login;
         this.password = password;
         this.enabled = enabled;
-        this.roles = roles;
+        setRoles(roles);
     }
 
     public String getLogin() {
@@ -62,6 +62,10 @@ public class User extends AbstractNamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
 
     @Override

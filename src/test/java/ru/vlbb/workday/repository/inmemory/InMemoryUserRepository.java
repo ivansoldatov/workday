@@ -1,23 +1,26 @@
 package ru.vlbb.workday.repository.inmemory;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.vlbb.workday.UserTestData;
 import ru.vlbb.workday.model.User;
 import ru.vlbb.workday.repository.UserRepository;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import static ru.vlbb.workday.UserTestData.*;
 
 @Repository
 public class InMemoryUserRepository extends InMemoryBaseRepository<User> implements UserRepository {
 
-    static final int USER_ID = 1;
-    static final int ADMIN_ID = 2;
+    public void init() {
+        map.clear();
+        put(user);
+        put(admin);
+        put(guest);
+        counter.getAndSet(UserTestData.GUEST_ID + 1);
+    }
 
     @Override
     public List<User> getAll() {
@@ -25,7 +28,14 @@ public class InMemoryUserRepository extends InMemoryBaseRepository<User> impleme
                 .sorted(Comparator.comparing(User::getName))
                 .collect(Collectors.toList());
     }
-
+/*
+    @Override
+    public User getByEmail(String email) {
+        return getCollection().stream()
+                .filter(u -> email.equals(u.getEmail()))
+                .findFirst()
+                .orElse(null);
+    } */
 
 }
 

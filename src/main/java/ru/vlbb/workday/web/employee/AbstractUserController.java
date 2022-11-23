@@ -10,7 +10,7 @@ import java.util.List;
 import static ru.vlbb.workday.util.ValidationUtil.assureIdConsistent;
 import static ru.vlbb.workday.util.ValidationUtil.checkNew;
 
-public abstract class AbstractEmployeeController {
+public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private UserService service;

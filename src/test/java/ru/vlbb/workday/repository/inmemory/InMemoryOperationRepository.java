@@ -20,25 +20,26 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static ru.vlbb.workday.repository.inmemory.InMemoryUserRepository.ADMIN_ID;
-import static ru.vlbb.workday.repository.inmemory.InMemoryUserRepository.USER_ID;
+import static ru.vlbb.workday.UserTestData.ADMIN_ID;
+import static ru.vlbb.workday.UserTestData.USER_ID;
 
 @Repository
 public class InMemoryOperationRepository implements OperationRepository {
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(InMemoryOperationRepository.class);
 
+    // Map  userId -> OperationRepository
     private final Map<Integer, InMemoryBaseRepository<Operation>> usersOperationsMap = new ConcurrentHashMap<>();
 
     {
-        OperationUtil.operations.forEach(Operation -> save(Operation, USER_ID));
-        save(new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 7, 9, 0), LocalDateTime.of(2022, Month.NOVEMBER, 7, 11, 5), "Работа с клиентом"), ADMIN_ID);
-        save(new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 7, 12, 0), LocalDateTime.of(2022, Month.NOVEMBER, 7, 17, 0), "Подготовка отчета для проверки ЦБ"), ADMIN_ID);
+        OperationUtil.operations.forEach(operation -> save(operation, USER_ID));
+        save(new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 7, 9, 0), LocalDateTime.of(2022, Month.NOVEMBER, 7, 11, 5), "Работа с клиентом"),ADMIN_ID);
+        save(new Operation(LocalDateTime.of(2022, Month.NOVEMBER, 7, 12, 0), LocalDateTime.of(2022, Month.NOVEMBER, 7, 17, 0), "Подготовка отчета для проверки ЦБ"),ADMIN_ID);
     }
 
     @Override
-    public Operation save(Operation Operation, int userId) {
-        InMemoryBaseRepository<Operation> Operations = usersOperationsMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
-        return Operations.save(Operation);
+    public Operation save(Operation operation, int userId) {
+        InMemoryBaseRepository<Operation> operations = usersOperationsMap.computeIfAbsent(userId, uId -> new InMemoryBaseRepository<>());
+        return operations.save(operation);
     }
 
     @PostConstruct
@@ -53,30 +54,30 @@ public class InMemoryOperationRepository implements OperationRepository {
 
     @Override
     public boolean delete(int id, int userId) {
-        InMemoryBaseRepository<Operation> Operations = usersOperationsMap.get(userId);
-        return Operations != null && Operations.delete(id);
+        InMemoryBaseRepository<Operation> operations = usersOperationsMap.get(userId);
+        return operations != null && operations.delete(id);
     }
 
     @Override
     public Operation get(int id, int userId) {
-        InMemoryBaseRepository<Operation> Operations = usersOperationsMap.get(userId);
-        return Operations == null ? null : Operations.get(id);
+        InMemoryBaseRepository<Operation> operations = usersOperationsMap.get(userId);
+        return operations == null ? null : operations.get(id);
     }
 
     @Override
     public List<Operation> getBetweenHalfOpen(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
-        return filterByPredicate(userId, Operation -> Util.isBetweenHalfOpen(Operation.getStartDateTime(), startDateTime, endDateTime));
+        return filterByPredicate(userId, operation -> Util.isBetweenHalfOpen(operation.getStartDateTime(), startDateTime, endDateTime));
     }
 
     @Override
     public List<Operation> getAll(int userId) {
-        return filterByPredicate(userId, Operation -> true);
+        return filterByPredicate(userId, operation -> true);
     }
 
     private List<Operation> filterByPredicate(int userId, Predicate<Operation> filter) {
-        InMemoryBaseRepository<Operation> Operations = usersOperationsMap.get(userId);
-        return Operations == null ? Collections.emptyList() :
-                Operations.getCollection().stream()
+        InMemoryBaseRepository<Operation> operations = usersOperationsMap.get(userId);
+        return operations == null ? Collections.emptyList() :
+                operations.getCollection().stream()
                         .filter(filter)
                         .sorted(Comparator.comparing(Operation::getStartDateTime).reversed())
                         .collect(Collectors.toList());

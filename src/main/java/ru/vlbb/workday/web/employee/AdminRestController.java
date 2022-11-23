@@ -8,7 +8,7 @@ import ru.vlbb.workday.model.User;
 import java.util.List;
 
 @Controller
-public class AdminRestController extends AbstractEmployeeController {
+public class AdminRestController extends AbstractUserController {
 
     @Override
     public List<User> getAll() {

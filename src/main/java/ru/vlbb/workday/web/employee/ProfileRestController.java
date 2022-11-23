@@ -6,7 +6,7 @@ import ru.vlbb.workday.model.User;
 import static ru.vlbb.workday.web.SecurityUtil.authUserId;
 
 @Controller
-public class ProfileRestController extends AbstractEmployeeController {
+public class ProfileRestController extends AbstractUserController {
 
     public User get() {
         return super.get(authUserId());
