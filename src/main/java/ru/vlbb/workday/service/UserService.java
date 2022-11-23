@@ -1,11 +1,11 @@
 package ru.vlbb.workday.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vlbb.workday.model.User;
 import ru.vlbb.workday.repository.UserRepository;
 
 import java.util.List;
-
 
 import static ru.vlbb.workday.util.ValidationUtil.checkNotFoundWithId;
 
@@ -13,6 +13,10 @@ import static ru.vlbb.workday.util.ValidationUtil.checkNotFoundWithId;
 public class UserService {
 
     private UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     public User create(User user) {
         return repository.save(user);

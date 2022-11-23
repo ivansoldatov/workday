@@ -2,6 +2,7 @@ package ru.vlbb.workday.web.employee;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.vlbb.workday.model.User;
 import ru.vlbb.workday.service.UserService;
 
@@ -13,6 +14,7 @@ import static ru.vlbb.workday.util.ValidationUtil.checkNew;
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
+    @Autowired
     private UserService service;
 
     public List<User> getAll() {
